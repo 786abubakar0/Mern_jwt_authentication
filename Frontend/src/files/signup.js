@@ -51,7 +51,7 @@ function SignupForm(){
     return(
     <div className='signup__main-container'>
         <div className='signup__signup-container'>
-            <div className='signup__heading'>Sign Up</div>
+            <div className='signup__heading'>Sign Up{SERVER_URL}</div>
             <div className='signup__signup-form'>
                 <form className="signup__form" onSubmit={handleSubmit}>
                     <div className='signup__form-item'>
