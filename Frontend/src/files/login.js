@@ -10,7 +10,7 @@ function LoginForm(){
         username: '',
         password: ''
     });
-    const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5000';
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
     const { user, login } = useUser();
     const navigate = useNavigate();
 
