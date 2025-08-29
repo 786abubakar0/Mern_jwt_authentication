@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5000';
+
+
 const refreshclient = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: SERVER_URL,
   withCredentials: true
 });
 
@@ -22,7 +25,7 @@ refreshclient.interceptors.request.use(
 
 // Create a custom Axios instance
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5000', //backend URL
+  baseURL: SERVER_URL, //backend URL
   withCredentials: true //  allows sending and receiving cookies
 });
 
