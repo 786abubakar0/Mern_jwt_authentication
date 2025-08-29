@@ -13,7 +13,7 @@ function SignupForm(){
         password: '',
         role:'admin'
     });
-    const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5000';
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
     const {user} = useUser();
     const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ function SignupForm(){
     return(
     <div className='signup__main-container'>
         <div className='signup__signup-container'>
-            <div className='signup__heading'>Sign Up{process.env.SERVER_URL}</div>
+            <div className='signup__heading'>Sign Up</div>
             <div className='signup__signup-form'>
                 <form className="signup__form" onSubmit={handleSubmit}>
                     <div className='signup__form-item'>
