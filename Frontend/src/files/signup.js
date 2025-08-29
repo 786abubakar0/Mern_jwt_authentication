@@ -13,6 +13,7 @@ function SignupForm(){
         password: '',
         role:'admin'
     });
+    const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5000';
     const {user} = useUser();
     const navigate = useNavigate();
 
@@ -37,7 +38,7 @@ function SignupForm(){
     const handleSubmit = async(e)=>{
         e.preventDefault();
         try{
-            await axios.post("http://localhost:5000/signup", formData);
+            await axios.post(SERVER_URL+"/signup", formData);
             alert('SignUp Successful!');
             setFormData({name: '', username: '',email: '', password: '', role:'admin'});
         }
