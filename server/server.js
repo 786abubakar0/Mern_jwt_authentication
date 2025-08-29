@@ -9,13 +9,13 @@ const rateLimit = require('express-rate-limit');
 const { ipKeyGenerator } = require('express-rate-limit'); // Import the helper function
 const { body, validationResult } = require('express-validator');
 
-
-
+const port = process.env.PORT || 5000;
+const MongoDbUrl = process.env.MONGOURI || 'mongodb://localhost:27017/myDatabase';
+const FrontEndOrigin = process.env.CORS_ORIGIN || 'http://localhost:3000';
 
 const app = express();
 const ACCESS_TOKEN_SECRET = 'dafdaf232adsf3243fgfa34sruewrunchr';
 const REFRESH_TOKEN_SECRET = 'zcio45344cn8d748b3434ncue4y8373dd';
-const port = 5000;
 
 
 const requestLimiter = rateLimit({
@@ -29,7 +29,7 @@ const requestLimiter = rateLimit({
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/myDatabase')
+mongoose.connect(MongoDbUrl)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
@@ -49,7 +49,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // frontend origin
+  origin: FrontEndOrigin, // frontend origin
   credentials: true, // allows to send cookies
   optionsSuccessStatus: 200 // Some legacy browsers choke on 204
 };
