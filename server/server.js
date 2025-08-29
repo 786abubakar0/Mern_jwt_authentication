@@ -18,6 +18,15 @@ const ACCESS_TOKEN_SECRET = 'dafdaf232adsf3243fgfa34sruewrunchr';
 const REFRESH_TOKEN_SECRET = 'zcio45344cn8d748b3434ncue4y8373dd';
 
 
+
+const corsOptions = {
+  origin: FrontEndOrigin, // frontend origin
+  credentials: true, // allows to send cookies
+  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+};
+
+app.use(cors(corsOptions));
+
 const requestLimiter = rateLimit({
   windowMs: 2 * 60 * 1000, // 2 minutes
   max: 6, // Max 6 requests per IP per window
@@ -47,14 +56,6 @@ const User = mongoose.model('SignUp', userSchema);
 // Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
-
-const corsOptions = {
-  origin: FrontEndOrigin, // frontend origin
-  credentials: true, // allows to send cookies
-  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
-};
-
-app.use(cors(corsOptions));
 
 // This middleware will be used to protect certain routes.
 const authenticateJWT = (req, res, next) => {
@@ -287,7 +288,7 @@ app.post('/logout', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('#Your server is running!' + MongoDbUrl +','+FrontEndOrigin);
+  res.send('Your server is running!!');
 });
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
