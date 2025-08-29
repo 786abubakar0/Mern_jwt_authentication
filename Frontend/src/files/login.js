@@ -10,7 +10,7 @@ function LoginForm(){
         username: '',
         password: ''
     });
-
+    const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5000';
     const { user, login } = useUser();
     const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ function LoginForm(){
     const handleSubmit = async(e)=>{
         e.preventDefault();
         try{
-            const response = await apiClient.post("http://localhost:5000/login", formData);
+            const response = await apiClient.post(SERVER_URL + "/login", formData);
             alert('Login Successful!');
             const { user, accessToken } = response.data;
             localStorage.setItem("accessToken", accessToken);
