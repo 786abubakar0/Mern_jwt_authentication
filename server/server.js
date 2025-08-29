@@ -287,7 +287,7 @@ app.post('/logout', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Your server is running!' + process.env.MONGOURI +','+process.env.CORS_ORIGIN);
+  res.send('#Your server is running!' + MongoDbUrl +','+FrontEndOrigin);
 });
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
