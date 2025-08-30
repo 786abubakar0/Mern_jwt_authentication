@@ -11,7 +11,8 @@ function ProfilePage(){
     const navigate = useNavigate();
     const {user, logout} = useUser();
     const [userCount, setuserCount] = useState('--');
-    const[isUserLoading, setIsUserLoading] = useState(false);
+    const [isUserLoading, setIsUserLoading] = useState(false);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     useEffect(() => {
         if (!user) {
@@ -49,11 +50,15 @@ function ProfilePage(){
     const handleSubmit = async(e)=>{
         e.preventDefault();
         try{
+            setIsLoggingOut(true);
             await apiClient.post('/logout');
             logout();
+            setIsLoggingOut(false);
+            alert('Logged out!');
             navigate('/login');
         }
         catch(error){
+            setIsLoggingOut(false);
             console.error("There was an error while logout!", error);
             alert('Log out failed!!');
 
@@ -90,7 +95,7 @@ function ProfilePage(){
                     </div>
 
                     <div className='profile__button-container'>
-                        <button className='profile__logout-button' id='submit' value='Submit'>Logout</button>
+                        <button className='profile__logout-button' id='submit' value='Submit' disabled={isLoggingOut}>{isLoggingOut ? 'Logging out':'Log out'}</button>
                     </div>  
         
                 </form>
