@@ -11,6 +11,7 @@ function ProfilePage(){
     const navigate = useNavigate();
     const {user, logout} = useUser();
     const [userCount, setuserCount] = useState('--');
+    const[isUserLoading, setIsUserLoading] = useState(false);
 
     useEffect(() => {
         if (!user) {
@@ -29,10 +30,13 @@ function ProfilePage(){
 
     const get_user_count = async () => {
       try {
+        setIsUserLoading(true);
         // Use apiClient to access the protected /profile endpoint
         const response = await apiClient.get('/getUserCount');
+        setIsUserLoading(false);
         setuserCount(response.data.userCount);
       } catch (error) {
+        setIsUserLoading(false);
         await apiClient.post('/logout');
         console.error('Failed to fetch profile data:', error);
         alert("Failed to fetch count. ReLogin!");
@@ -76,7 +80,7 @@ function ProfilePage(){
                         <label htmlFor='usercount'>Total Users: {userCount}</label>
                     </div>
                     <div className='profile__data-item'>
-                        <button className='profile__count-button' type='button' onClick={get_user_count}>Total Users</button>
+                        <button className='profile__count-button' type='button' onClick={get_user_count} disabled={isUserLoading}>{isUserLoading ? 'Wait...' : 'Total Users'}</button>
 
                         {user.role === 'admin' && (
                             // This element is rendered only if role is admin
