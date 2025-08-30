@@ -49,8 +49,13 @@ function LoginForm(){
         catch(error){
             setIsLoading(false);
             console.error("There was an error while login! ", error);
-            alert('login failed!!' + error.response.data);
+            if(typeof error.response == 'undefined'){
+                alert('login failed!!');
+            }
+            else{
+                alert('login failed!!' + error.response.data);
 
+            }
         }
     };
     return(
