@@ -8,22 +8,33 @@ function UserData(){
     const navigate = useNavigate();
     const {user, logout} = useUser();
     const [allUserData, setallUserData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const get_user_data = async()=> {
-        try {
         // Use apiClient to access the protected /profile endpoint
-        const response = await apiClient.get('/getAllUserData');
+        const response = await apiClient.get('/getAllUserData');        
         setallUserData(response.data.allUserData);
-      } catch (error) {
-        setallUserData([]);
+
+    };
+
+    const clearuser = async()=>{
         await apiClient.post('/logout');
-        console.error('Failed to fetch user data:', error);
-        alert("Failed to fetch data. ReLogin!");
-        logout();        
-      }
+        logout();   
     };
     
     useEffect(() => {
-    get_user_data();
+        try{
+            setIsLoading(true);
+            get_user_data();
+            setIsLoading(false);
+        }
+        catch(error){
+            setIsLoading(false);
+            setallUserData([]);
+            console.error('Failed to fetch user data:', error);
+            alert("Failed to fetch data. ReLogin!");
+            clearuser();
+
+        }
     // eslint-disable-next-line
   },[]); 
     
@@ -41,7 +52,7 @@ function UserData(){
     return(
         <div className='userdata__main-container'>
         <div className='userdata__table-container'>
-            <div className='userdata__heading'>Users Data</div>
+            <div className='userdata__heading'>{isLoading? 'Fetching Data' : 'Users Data'}</div>
             <table className='userdata__table'>
                 <thead>
                     <tr>
