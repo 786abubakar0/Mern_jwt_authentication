@@ -13,6 +13,8 @@ function SignupForm(){
         password: '',
         role:'admin'
     });
+
+    const [isLoading, setIsLoading] = useState(false);
     const SERVER_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
     const {user} = useUser();
     const navigate = useNavigate();
@@ -38,11 +40,14 @@ function SignupForm(){
     const handleSubmit = async(e)=>{
         e.preventDefault();
         try{
+            setIsLoading(true);
             await axios.post(SERVER_URL+"/signup", formData);
             alert('SignUp Successful!');
+            setIsLoading(false);
             setFormData({name: '', username: '',email: '', password: '', role:'admin'});
         }
         catch(error){
+            setIsLoading(false);
             console.error("There was an error while signup!", error);
             alert('Sign Up failed!!' + error.response.data);
 
@@ -89,7 +94,7 @@ function SignupForm(){
                     </div>
                     <div className='signup__button-container'>
                         <Link to='/login'><button className='signup__login-button' type='button' id='login'>Login</button></Link>
-                        <button className='signup__signup-button' type='submit' id='submit' value='Submit'>Sign up</button>
+                        <button className='signup__signup-button' type='submit' id='submit' value='Submit' disabled={isLoading}>{isLoading ? 'Wait...' : 'Sign up'}</button>
 
                     </div>
                     <div className='signup__submit-response'>Submit response</div>                   
