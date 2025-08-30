@@ -49,7 +49,13 @@ function SignupForm(){
         catch(error){
             setIsLoading(false);
             console.error("There was an error while signup!", error);
-            alert('Sign Up failed!!' + error.response.data);
+             if(typeof error.response == 'undefined'){
+                alert('Sign up failed!! ');
+            }
+            else{
+                alert('Sign up failed!!' + error.response.data);
+            }
+            
 
         }
     };
