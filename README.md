@@ -67,7 +67,7 @@
 ## requestLimiter middleware
 	- This middleware is used for protection from brute force attack.
  	- It limits the login or signup request.
-  	- Maximum 6 request of login/signup can be made within 2 minutes window.
+  	- Maximum 6 request of login/signup can be made within 2 minutes window from same IP address.
 
 ## authenticateJWT middleware
 	- This middleware is used to check whether accesstoken is valid and correct to give the access to the protected resource.
@@ -82,8 +82,40 @@
  	- This is used whenever accessToken is failed to verify.
   	- It validates the refresh token from cookie and generates the new accessToken.
 
+## signup routes
+	- There are 3 consecutive signup routes.
+ 	- First route validates the user data like username should have minimum 5 characters, password should have minimum 8 characters, whether username alerady exists or not etc. It only allows 1 admin role at a time.
+  	- Second route generates the hash for password.
+   	- Third route saves the data in mongodb database and return the status code of 201.
+	- Overall, 400 or 500 status code is sent in failure case and 201 status code is sent in successful sign up.  
 
-##
- 
- 	
+## getUserCount route
+	- This route is jwt protected. It jwt is verified then it returns the total number of users with status code of 200.
+
+ ## getAllUserData route
+ 	- This route is also jwt protected. It return whole data of all user's with status code of 200.
+  	- It only returns the user's data to the admin.
+
+## logout route
+	- It clears the cookie to remove the refreshToken and sends 200 status code in case of successful logout.
+
+
+# Security Measure
+	- To be safe from brute force attack, requestlimiter feature is used(on server side) to limit the login/signup requests from frontend. It only allows 6 attempts from single IP in 2 minute window.
+ 	- To be safe from csrf attacks, {sameSite: 'strict'} is used(on server side) in refreshToken cookie. Similarly {origin: FrontEndOrigin} is used in cors.
+  	- To be safe from XSS attacks, express-validator is used(on server side) to escape the data.
+ 	- Password is saved in database after bcrypt hashing.
+  	- On frontend, short lived accessToken is saved in local Storage while accessToken can't be accessed.
+   	- User can't submit empty field from frontend, too.
+
+# Deployment
+	- I used render for deployment.
+ 	- In render, web service is used for backend deployment while static site is used for frontend deployment.
+  	- For MongoDb, I used mongodb atlas.
+	- We need three things urls, frontend url, backend url, mongodb url.
+ 	- In frontend, server url has to be changed or give through environement variable.
+  	- In backend, fronend url is needed and also mongodb url is needed.
+   	- I gave all urls through render environment variables.
+	- The ip address of the server should be added in mongodb atlas to allow the database access to the server.
+ 	- A redirect rule is also added in render settings to redirect all routes to index.html due to the reason of how render server intercepts the frontend routes.
 
