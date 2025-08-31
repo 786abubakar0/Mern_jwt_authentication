@@ -100,7 +100,7 @@
 	- It clears the cookie to remove the refreshToken and sends 200 status code in case of successful logout.
 
 
-# Security Measure
+# Security Measures
 	- To be safe from brute force attack, requestlimiter feature is used(on server side) to limit the login/signup requests from frontend. It only allows 6 attempts from single IP in 2 minute window.
  	- To be safe from csrf attacks, {sameSite: 'strict'} is used(on server side) in refreshToken cookie. Similarly {origin: FrontEndOrigin} is used in cors.
   	- To be safe from XSS attacks, express-validator is used(on server side) to escape the data.
@@ -112,7 +112,7 @@
 	- I used render for deployment.
  	- In render, web service is used for backend deployment while static site is used for frontend deployment.
   	- For MongoDb, I used mongodb atlas.
-	- We need three things urls, frontend url, backend url, mongodb url.
+	- We need three things, frontend url, backend url, mongodb url.
  	- In frontend, server url has to be changed or give through environement variable.
   	- In backend, fronend url is needed and also mongodb url is needed.
    	- I gave all urls through render environment variables.
