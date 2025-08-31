@@ -42,9 +42,48 @@
  ## profile.js
  	- It renders the user data stored in mongoDb database.
 	- It checks if user is not logged in then user is redirected to the login page.
- 	- It has a button to get total number of users that are registered from database to the logged in users.
-	- It also includes log out function that 
- 
+ 	- It has a button to get total number of users that are registered from database to the logged in users. And it needs jwt validation. This button will be accessible for both admin and user role.
+	- It also includes log out button that perform necessary actions regarding local state and sends logout request to the server too.
+
+ ## userdata.js
+	- It renders the all user's role data from database to the admin only. And it needs jwt validation. 
+ 	- It checks if user is not logged in then user is redirected to the login page.
+
+## CSS styling
+	- All the css files are stored in src/files/styles.
+ 	- Each react page has its own separate css file.
+ 	- Each component class name is prefixed with its file name to avoid conflicts. Like classname of button on login page will be like login__button. 
+
+
+# Backend server.js
+	- It has code 'port = process.env.PORT || 5000;' to assign port to run the server on.
+ 	- It has code 'MongoDbUrl = process.env.MONGOURI || 'mongodb://localhost:27017/myDatabase';' to assign the url for mongodb server.
+  	- It has code 'FrontEndOrigin = process.env.CORS_ORIGIN || 'http://localhost:3000';' to asign the url of frontend.
+
+## Database
+	- It defines the MongoDb database schema and model.
+ 	- It connects with mongoDb.
+
+## requestLimiter middleware
+	- This middleware is used for protection from brute force attack.
+ 	- It limits the login or signup request.
+  	- Maximum 6 request of login/signup can be made within 2 minutes window.
+
+## authenticateJWT middleware
+	- This middleware is used to check whether accesstoken is valid and correct to give the access to the protected resource.
+ 	- If verification is successful, it attaches the user payload to the request and passes the control the next applied route.
+
+## login route
+	- It checks for valid username in database and compares the password using bcrypt.compare.
+ 	- If validation is passed then accessToken is signed for '15 minutes' and sent to the user with status code of 200.
+  	- If validation passes, then it also creates refreshToken for '7 days' and it is sent in secure HttpOnly cookie.
+
+ ## refresh_token route
+ 	- This is used whenever accessToken is failed to verify.
+  	- It validates the refresh token from cookie and generates the new accessToken.
+
+
+##
  
  	
 
