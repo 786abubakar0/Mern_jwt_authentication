@@ -1,3 +1,6 @@
+User role can only see total users registered in the system while admin can see the total number of users and also see users whole data.
+
+
 # Overall there are 2 main directories:
 	- Frontend
  			* It contains all files of whole react project (excluding node_modules folder) created through npx command 'npx create-react-app my-app'. 
