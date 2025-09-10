@@ -115,7 +115,7 @@ app.post('/login', [
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
     secure: process.env.NODE_ENV === 'production', // Use secure in production
-    sameSite: 'strict', // Protects against CSRF attacks
+    sameSite: 'None', // Protects against CSRF attacks
     maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
   });
 
@@ -293,4 +293,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+
 
