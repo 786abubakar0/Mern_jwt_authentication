@@ -143,11 +143,15 @@ button.profile__logout-button{
 }
 
 @media (max-width: 600px){
+.profile__logout-container .profile__heading{
+    font-size: 25px;    
+}
 .profile__logout-form form{
     padding: 0 30px;
 }
 .profile__logout-container{
     width: 85vw;
 }
+
 
 }
