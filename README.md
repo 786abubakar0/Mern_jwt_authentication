@@ -105,7 +105,7 @@ User role can only see total users registered in the system while admin can see 
 
 # Security Measures
 	- To be safe from brute force attack, requestlimiter feature is used(on server side) to limit the login/signup requests from frontend. It only allows 6 attempts from single IP in 2 minute window.
- 	- To be safe from csrf attacks, {sameSite: 'strict'} is used(on server side) in refreshToken cookie. Similarly {origin: FrontEndOrigin} is used in cors.
+ 	- To be safe from csrf attacks, {origin: FrontEndOrigin} is used in cors.
   	- To be safe from XSS attacks, express-validator is used(on server side) to escape the data.
  	- Password is saved in database after bcrypt hashing.
   	- On frontend, short lived accessToken is saved in local Storage while accessToken can't be accessed.
