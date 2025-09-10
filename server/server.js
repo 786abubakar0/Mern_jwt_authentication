@@ -102,7 +102,7 @@ app.post('/login', [
     const accessToken = jwt.sign({
     id: user.id,
     username: user.username,
-  }, ACCESS_TOKEN_SECRET, { expiresIn: '2m' });
+  }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
 
   // Generate a long-lived refresh token (e.g., 7 days)
   const refreshToken = jwt.sign({
@@ -153,7 +153,7 @@ app.post('/refresh_token', (req, res) => {
     const newAccessToken = jwt.sign({
       id: user.id,
       username: user.username,
-    }, ACCESS_TOKEN_SECRET, { expiresIn: '2m' });
+    }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
 
     res.status(200).json({ accessToken: newAccessToken });
   });
@@ -293,6 +293,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+
 
 
 
