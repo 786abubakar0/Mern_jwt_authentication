@@ -281,7 +281,7 @@ app.post('/logout', (req, res) => {
   res.clearCookie('refreshToken', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    sameSite: 'None',
   });
 
   res.status(200).json({ message: 'Logged out successfully.' });
@@ -293,6 +293,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+
 
 
 
